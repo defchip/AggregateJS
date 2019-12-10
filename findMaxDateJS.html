@@ -1,0 +1,60 @@
+<html>
+  <head>
+    <script>
+      function findMaxDateJS() {
+        var data = [
+          { entityId: '123456', date: '14/05/2017' },
+          { entityId: '123456', date: '25/04/2018' },
+          { entityId: '123456', date: '02/06/2019' },
+          { entityId: '456789', date: '20/08/2015' },
+          { entityId: '456789', date: '14/05/2016' },
+          { entityId: '456789', date: '12/05/2016' },
+          { entityId: '456789', date: '30/01/2019' },
+          { entityId: '987654', date: '15/01/2011' }
+        ];
+
+        document.getElementById('data').innerHTML = JSON.stringify(
+          data,
+          null,
+          4
+        );
+
+        var entityIds = data.map(function(item) {
+          return item.entityId;
+        });
+
+        var distinctEntityIds = [...new Set(entityIds)];
+
+        var maxDates = [];
+
+        for (var item in distinctEntityIds) {
+          var filtered = data.filter(e => {
+            return e.entityId === distinctEntityIds[item];
+          });
+          var maxDate = filtered.reduce((a, b) => {
+            return a.entityId, a < b ? a : b;
+          });
+          maxDates.push(maxDate);
+        }
+
+        document.getElementById('results').innerHTML = JSON.stringify(
+          maxDates,
+          null,
+          4
+        );
+      }
+      window.onload = findMaxDateJS;
+    </script>
+  </head>
+  <body>
+    <h3>Get Max Date from Multidimentional Array</h3>
+
+    <p>Data</p>
+    <div id="data"></div>
+
+    <br />
+
+    <p>Results</p>
+    <div id="results"></div>
+  </body>
+</html>
